@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html ng-app="app">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Post Author</title>
+</head>
+<body ng-controller="authorController">
+
+  <pre class="rightalign" ng-bind="authors | json">
+    
+  </pre>
+
+  <input type="text" placeholder="lastname"  ng-model="author.lastname"/></br>
+  <input type="text" placeholder="firstname" ng-model="author.firstname"/></br>
+  <button ng-click="saveAuthor(author)">Save Author</button>
+
+  <pre ng-bind="author | json">
+  </pre>
+
+
+  <script src='/components/angularjs/angular.js'></script>
+  <script src='/app/script.js'></script>
+  <style>
+    body, input, button {font-size: 1.3em;}
+    input, button {margin: 5px;}
+    pre {
+      padding: 3px;
+      font-size: .9em;
+      color: gray;
+      border: 2px dotted #CACACA;
+      width: 48%;
+    }
+    .rightalign {
+      clear:both;
+      float:right;
+    }
+
+  </style>
+</body>
+</html>
