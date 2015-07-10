@@ -20,6 +20,18 @@ app.use('/app', express.static('app'));
 
 app.use(bodyParser.json());
 
+app.get('/author', function(req, res){
+    Author.find().lean().exec(function(error, data){
+    if(!error){
+      // console.log(data);
+      res.send(data);
+    }
+    else {
+      res.send(error);
+    }
+  });  
+});
+
 app.post('/author', function(req, res){
   var lname = req.body.lastname;
   var fname = req.body.firstname;
@@ -27,13 +39,10 @@ app.post('/author', function(req, res){
   // console.log(lname + " , " + fname);
   // res.send(getAllAuthors());
  
-  // I have to duplicate this code for now,
-  // unless I find a way for getAllAuthors() accept
-  // a callback
-
   new Author({
     lastname : req.body.lastname,
-    firstname :req.body.firstname
+    firstname :req.body.firstname,
+    books: req.body.books
   }).save(function(err){
     if(!err){
       console.log("Saved ");
@@ -42,6 +51,11 @@ app.post('/author', function(req, res){
       console.log("Error: " + err);
     }
   });
+
+  // I have to duplicate this code for now,
+  // unless I find a way for getAllAuthors() accept
+  // a callback
+
 
   Author.find().lean().exec(function(error, data){
     if(!error){
