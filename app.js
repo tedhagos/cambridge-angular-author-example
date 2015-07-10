@@ -20,6 +20,42 @@ app.use('/app', express.static('app'));
 
 app.use(bodyParser.json());
 
+
+app.put('/author', function(req, res){
+  
+  var condition = {_id: req.body._id};
+  var updateData = {
+    lastname: req.body.lastname,
+    firstname: req.body.firstname,
+    books : req.body.books
+  };
+  
+  Author.findOneAndUpdate(condition, updateData, function(err){
+    if(!err){
+      res.send("Updated " + req.body.lname);
+    }
+    else {
+      console.log("Error " + err);
+      res.send("Error " + err);
+    }
+  });
+});
+
+
+/*
+app.put('/author', function(req, res){
+  console.log(req.body);
+  Author(req.body).update(function(err){
+    if(!err){
+      res.send("Updated " + req.body.lastname);
+    }
+    else {
+      console.log("Error in updating " + err);
+      res.send("Error in updating " + err);
+    }
+  });
+});
+*/
 app.get('/author', function(req, res){
     Author.find().lean().exec(function(error, data){
     if(!error){

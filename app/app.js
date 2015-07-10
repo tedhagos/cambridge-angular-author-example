@@ -1,10 +1,24 @@
 (function(){
   
-  var app = angular.module('app', []);
+  var app = angular.module('app', ['ngRoute']);
+
+  app.config(function($routeProvider){
+    $routeProvider
+      .when('/add', {
+        controller  : 'authorController',
+        templateUrl : 'views/addauthor.html'
+      })
+      .when('/edit',{
+        controller  : 'authorController',
+        templateUrl : 'views/editauthor.html'
+      })
+      .otherwise({redirectTo: '/add'});
+  });
+
 
   app.controller('authorController', function($http, $scope){
 
-    $scope.authors = authorFetch();
+    authorFetch();
 
     $scope.a = {
       lastname: '',
@@ -23,6 +37,21 @@
       $scope.a = mauthor;
     }
 
+    $scope.updateAuthor = function (mauthor){
+      $http({
+        url: '/author',
+        method: 'PUT',
+        data: mauthor,
+        headers: {'Content-Type': 'application/json'}
+      }).
+      success(function(data){
+        console.log("Succeeded in update " + data);
+        $scope.authors = authorFetch();
+      }).
+      error(function(data){
+        console.log("Error Updating " + data);
+      });
+    };
 
     $scope.saveAuthor = function(mauthor) {
       var formdata = {lastname: mauthor.lastname, firstname: mauthor.firstname, books: mauthor.books};
@@ -35,7 +64,7 @@
       success(function(data){
         console.log(data)
         //$scope.authors = data;
-        $scope.authors = authorFetch();
+        authorFetch();
       }).
       error(function(data){
         console.log("Error " + data);
