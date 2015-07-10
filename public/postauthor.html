@@ -26,7 +26,10 @@
     <div id='right' class='authorlist'>
       <input type="text" placeholder="filter search" ng-model="list.search" />
       <div ng-repeat="author in authors | filter:list.search">
-        <h2>{{author.firstname}} &nbsp;{{author.lastname}}</h2>
+        <span class='authorline'>
+          {{author.firstname}} &nbsp;{{author.lastname}}
+          <a href="#" ng-click="editAuthor(author)">...</a>
+        </span><p/>
         <ul ng-repeat="book in author.books">
           <li>{{book}}</li>
         </ul>
@@ -54,13 +57,12 @@
     }
 
     input, button {font-size: 1.3em;}
-    input, button {margin: 5px;}
+    input, button, pre {margin: 5px;}
     pre {
       padding: 3px;
       font-size: .9em;
       color: gray;
       border: 2px dotted #CACACA;
-      width: 45%;
     }
     .authorlist {
       font-family: 'Tahoma';
@@ -70,6 +72,7 @@
         line-height: .8em;
       }
       hr {border:0;border-bottom: 1px dotted gray;}
+    .authorline {font-size: 1.4em; font-weight: bold;}
   </style>
 </body>
 </html>

@@ -18,6 +18,12 @@
     }
 
 
+    $scope.editAuthor = function(mauthor){
+      //alert(a.lastname + a.firstname + a._id);
+      $scope.a = mauthor;
+    }
+
+
     $scope.saveAuthor = function(mauthor) {
       var formdata = {lastname: mauthor.lastname, firstname: mauthor.firstname, books: mauthor.books};
       $http({
