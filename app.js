@@ -42,20 +42,6 @@ app.put('/author', function(req, res){
 });
 
 
-/*
-app.put('/author', function(req, res){
-  console.log(req.body);
-  Author(req.body).update(function(err){
-    if(!err){
-      res.send("Updated " + req.body.lastname);
-    }
-    else {
-      console.log("Error in updating " + err);
-      res.send("Error in updating " + err);
-    }
-  });
-});
-*/
 app.get('/author', function(req, res){
     Author.find().lean().exec(function(error, data){
     if(!error){
@@ -72,9 +58,6 @@ app.post('/author', function(req, res){
   var lname = req.body.lastname;
   var fname = req.body.firstname;
 
-  // console.log(lname + " , " + fname);
-  // res.send(getAllAuthors());
- 
   new Author({
     lastname : req.body.lastname,
     firstname :req.body.firstname,
@@ -106,27 +89,5 @@ app.post('/author', function(req, res){
 
 });
 
-/*
-
-// This code does not work, because of the async nature of
-// find(). I have to find a way to make the getAllAuthors() accept 
-// a callback, then I can reuse the codes in many parts of the expres
-// route 
-
-
-var getAllAuthors = function() {
-
-  Author.find().lean().exec(function(error, data){
-    if(!error){
-      // console.log(data);
-      return data;
-    }
-    else {
-      return "Error " + error;
-    }
-  });  
-};
-
-*/
 
 app.listen(3000, function(){console.log("waiting on 3000");});
